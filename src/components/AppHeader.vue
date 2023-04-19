@@ -3,6 +3,7 @@
 
     export default {
         name: "AppHeader",
+        emits: ["search"],
         data() {
             return {
                 store
@@ -16,8 +17,10 @@
         <div class="container d-flex justify-content-between align-items-center">
             <div class="logo">BOOLFLIX</div>
             <div class="searchbar">
-                <input class="w-50" type="text" placeholder="Inserisci il film da cercare..." v-model="store.search">
-                <button class="ms-4">Cerca</button>
+                <input class="w-50" type="text" placeholder="Inserisci il film da cercare..." 
+                    v-model.trim="store.query" 
+                    @keyup.enter="$emit('search')">
+                <button class="ms-4" @click="$emit('search')">Cerca</button>
             </div>
         </div>
     </header>
