@@ -3,15 +3,29 @@
     export default {
         name: "AppCard",
         props: {
-            film: Object
+            movie: Object
         },
         data() {
             return {
-                noFlags: ['en', 'ur', 'zh', 'ja', 'ko'],
+                noFlags: ['en', 'ur', 'zh', 'ja', 'ko', 'hi'],
+            }
+        },
+        computed: {
+            title() {
+                return this.movie.title;
+            },
+            originalTitle() {
+                return this.movie.original_title;
+            },
+            originalLanguage () {
+                return this.movie.original_language;
+            },
+            vote () {
+                return this.movie.vote_average;
             }
         },
         methods: {
-            getLang(lang) {
+            isFound(lang) {
                 return this.noFlags.includes(lang);
             }
         }
@@ -20,13 +34,13 @@
 
 <template>
     <div class="card">
-        <p><span>Titolo:</span> {{ film.title }}</p>
-        <p><span>Titolo originale:</span> {{ film.original_title }}</p>
+        <p><span>Titolo:</span> {{ title }}</p>
+        <p><span>Titolo originale:</span> {{ originalTitle }}</p>
         <p>
             <span>Lingua:</span>
-            <span v-if="getLang(film.original_language)">{{ film.original_language }}</span>
-            <span :class="`fi fi-${ film.original_language }`"></span></p>
-        <p><span>Voto:</span> {{ film.vote_average }}</p>
+            <span v-if="isFound(originalLanguage)">{{ originalLanguage }}</span>
+            <span :class="`fi fi-${ originalLanguage }`"></span></p>
+        <p><span>Voto:</span> {{ vote }}</p>
     </div>
 </template>
 

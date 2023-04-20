@@ -17,15 +17,20 @@ export default {
   methods: {
     handleSearch() {
       if(this.store.query) {
-        axios.get(this.store.apiMovieURL, {
+        this.getMovies();
+      }
+    },
+    getMovies() {
+      axios.get(`${this.store.apiURL}/search/movie`, {
           params: {
             api_key: this.store.api_key,
             query: this.store.query
           }
         }).then(resp => {
-          this.store.films = resp.data.results;
+          this.store.movies = resp.data.results;
+        }).catch(error => {
+          console.log(error);
         })
-      }
     }
   }
 }

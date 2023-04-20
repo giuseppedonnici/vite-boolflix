@@ -16,8 +16,8 @@
 
 <template>
     <div class="row mt-4">
-      <div class="col-4 g-4" v-for="(film, index) in store.films" :key="film.id">
-        <AppCard :film="film" />
+      <div class="col-4 g-4" v-for="(movie, index) in store.movies" :key="movie.id">
+        <AppCard :movie="movie" />
       </div>
     </div>
 
