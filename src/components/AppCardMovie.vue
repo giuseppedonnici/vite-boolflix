@@ -9,7 +9,7 @@
         },
         data() {
             return {
-                store                
+                store,
             }
         },
         computed: {
@@ -22,8 +22,15 @@
             originalLanguage () {
                 return this.movie.original_language;
             },
+            overview() {
+                return this.movie.overview;
+            },
             vote () {
-                return this.movie.vote_average;
+                let vote = this.movie.vote_average / 2;
+                return Math.round(vote);
+            },
+            voidStars() {
+                return 5 - this.vote;
             },
             partialPath() {
                 return this.movie.poster_path;
@@ -35,7 +42,7 @@
             },
             getFullUrl(partialPath) {
                 return `${this.store.imgURL + partialPath}`;
-            }
+            },
         }
     }
 </script>
@@ -49,8 +56,16 @@
                 <span>Lingua:</span>
                 <span v-if="isFound(originalLanguage)">{{ originalLanguage }}</span>
                 <span :class="`fi fi-${ originalLanguage }`"></span></p>
-            <p><span>Voto:</span> {{ vote }} </p>
-            <i class="fa-solid fa-star"></i>
+            <p>
+                <span>Voto:</span>
+                <span v-for="num in vote">
+                    <i class="fa-solid fa-star"></i>
+                </span>
+                <span v-for="num in voidStars">
+                    <i class="fa-regular fa-star"></i>
+                </span>
+            </p>
+            <p><span>Overview:</span> {{ overview }} </p>
         </div>
         <img :src="getFullUrl(partialPath)" alt="">
     </div>
@@ -58,16 +73,30 @@
 
 <style scoped lang="scss">
     .card {
-        height: 100%;
+        height: 450px;
         background-color: black;
         color: white;
         padding: 1rem;
+        
+        p {
+            margin-bottom: .2rem;
+        }
         & span {
             font-weight: bold;
             margin-right: 1rem;
         }
-        i {
-            color: yellow;
+        .description {
+            display: none;
+        }
+        &:hover .description {
+            display: unset;
+            overflow-y: auto;
+        }
+        &:hover img {
+            display: none;
+        }
+        img {
+            max-width: 100%;
         }
     }
 </style>

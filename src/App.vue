@@ -60,11 +60,12 @@ export default {
 
 <template>
   <AppHeader @search="handleSearch" />
-  <div class="container">
+  <div class="container mb-5">
     <AppMain />
   </div>
 </template>
 
 <style lang="scss">
 @use "./styles/general.scss";
+
 </style>
