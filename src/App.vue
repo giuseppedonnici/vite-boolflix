@@ -17,6 +17,7 @@ export default {
   methods: {
     handleSearch() {
       if (this.store.query) {
+        this.store.displayTitleSection = true;
         this.getMovies();
         this.getSeries();
       }

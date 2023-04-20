@@ -1,44 +1,43 @@
 <script>
-    import "/node_modules/flag-icons/css/flag-icons.min.css";
-    import "/node_modules/@fortawesome/fontawesome-free/css/all.css";
-    import { store } from "../store";
-    export default {
-        name: "AppCard",
-        props: {
-            movie: Object
-        },
-        data() {
-            return {
-                store,
-                noFlags: ['en', 'ur', 'zh', 'ja', 'ko', 'hi']
-            }
-        },
-        computed: {
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "/node_modules/@fortawesome/fontawesome-free/css/all.css";
+import { store } from "../store";
+export default {
+    name: "AppCardSerie",
+    props: {
+        serie: Object
+    },
+    data() {
+        return {
+            store,
+        }
+    },
+    computed: {
             title() {
-                return this.movie.title;
+                return this.serie.name;
             },
             originalTitle() {
-                return this.movie.original_title;
+                return this.serie.original_name;
             },
             originalLanguage () {
-                return this.movie.original_language;
+                return this.serie.original_language;
             },
             vote () {
-                return this.movie.vote_average;
+                return this.serie.vote_average;
             },
             partialPath() {
-                return this.movie.poster_path;
+                return this.serie.poster_path;
             }
         },
         methods: {
             isFound(lang) {
-                return this.noFlags.includes(lang);
+                return this.store.noFlags.includes(lang);
             },
             getFullUrl(partialPath) {
                 return `${this.store.imgURL + partialPath}`;
             }
         }
-    }
+}
 </script>
 
 <template>
@@ -66,6 +65,9 @@
         & span {
             font-weight: bold;
             margin-right: 1rem;
+        }
+        i {
+            color: yellow;
         }
     }
 </style>
