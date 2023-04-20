@@ -22,6 +22,8 @@ export default {
       }
     },
     getMovies() {
+      this.store.isLoading = true;
+
       axios.get(`${this.store.apiURL}/search/movie`, {
         params: {
           api_key: this.store.api_key,
@@ -31,9 +33,13 @@ export default {
         this.store.movies = resp.data.results;
       }).catch(error => {
         console.log(error);
+      }).finally(() => {
+        this.store.isLoading = false;
       })
     },
     getSeries() {
+      this.store.isLoading = true;
+
       axios.get(`${this.store.apiURL}/search/tv`, {
         params: {
           api_key: this.store.api_key,
@@ -43,6 +49,8 @@ export default {
         this.store.series = resp.data.results;
       }).catch(error => {
         console.log(error);
+      }).finally(() => {
+        this.store.isLoading = false;
       })
     }
   }

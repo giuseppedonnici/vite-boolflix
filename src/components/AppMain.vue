@@ -15,7 +15,8 @@
 </script>
 
 <template>
-    <div class="row mt-4">
+    <div v-if="store.isLoading">Loading...</div>
+    <div v-else class="row mt-4">
       <div class="col-4 g-4" v-for="(movie, index) in store.movies" :key="movie.id">
         <AppCard :movie="movie" />
       </div>

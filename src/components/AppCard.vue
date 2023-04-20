@@ -1,5 +1,7 @@
 <script>
     import "/node_modules/flag-icons/css/flag-icons.min.css";
+    import "/node_modules/@fortawesome/fontawesome-free/css/all.css";
+    import { store } from "../store";
     export default {
         name: "AppCard",
         props: {
@@ -7,7 +9,8 @@
         },
         data() {
             return {
-                noFlags: ['en', 'ur', 'zh', 'ja', 'ko', 'hi'],
+                store,
+                noFlags: ['en', 'ur', 'zh', 'ja', 'ko', 'hi']
             }
         },
         computed: {
@@ -22,11 +25,17 @@
             },
             vote () {
                 return this.movie.vote_average;
+            },
+            partialPath() {
+                return this.movie.poster_path;
             }
         },
         methods: {
             isFound(lang) {
                 return this.noFlags.includes(lang);
+            },
+            getFullUrl(partialPath) {
+                return `${this.store.imgURL + partialPath}`;
             }
         }
     }
@@ -34,13 +43,17 @@
 
 <template>
     <div class="card">
-        <p><span>Titolo:</span> {{ title }}</p>
-        <p><span>Titolo originale:</span> {{ originalTitle }}</p>
-        <p>
-            <span>Lingua:</span>
-            <span v-if="isFound(originalLanguage)">{{ originalLanguage }}</span>
-            <span :class="`fi fi-${ originalLanguage }`"></span></p>
-        <p><span>Voto:</span> {{ vote }}</p>
+        <div class="description">
+            <p><span>Titolo:</span> {{ title }}</p>
+            <p><span>Titolo originale:</span> {{ originalTitle }}</p>
+            <p>
+                <span>Lingua:</span>
+                <span v-if="isFound(originalLanguage)">{{ originalLanguage }}</span>
+                <span :class="`fi fi-${ originalLanguage }`"></span></p>
+            <p><span>Voto:</span> {{ vote }} </p>
+            <i class="fa-solid fa-star"></i>
+        </div>
+        <img :src="getFullUrl(partialPath)" alt="">
     </div>
 </template>
 
