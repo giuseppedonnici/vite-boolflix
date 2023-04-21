@@ -8,6 +8,7 @@
         data() {
             return {
                 store,
+                img: "https://image.tmdb.org/t/p/w342/dBp0REsZkZ1HK1PycwlLdBtYdsd.jpg"
             }
         },
         computed: {
@@ -91,4 +92,10 @@
             max-width: 100%;
         }
     }
+@media screen and (max-width: 1200px) {
+    .card {
+        height: unset;
+    }
+    
+}
 </style>
