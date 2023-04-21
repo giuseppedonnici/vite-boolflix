@@ -1,11 +1,9 @@
 <script>
-    import "/node_modules/flag-icons/css/flag-icons.min.css";
-    import "/node_modules/@fortawesome/fontawesome-free/css/all.css";
     import { store } from "../store";
     export default {
-        name: "AppCardMovie",
+        name: "AppCard",
         props: {
-            movie: Object,
+            cardObj: Object,
         },
         data() {
             return {
@@ -14,27 +12,26 @@
         },
         computed: {
             title() {
-                return this.movie.title;
+                return this.cardObj.title ? this.cardObj.title : this.cardObj.name;
             },
             originalTitle() {
-                return this.movie.original_title;
+                return this.cardObj.original_title ? this.cardObj.original_title : this.cardObj.original_name;
             },
             originalLanguage () {
-                return this.movie.original_language;
+                return this.cardObj.original_language;
             },
             overview() {
-                return this.movie.overview;
+                return this.cardObj.overview;
             },
             vote () {
-                let vote = this.movie.vote_average / 2;
-                return Math.round(vote);
+                return Math.ceil(this.cardObj.vote_average / 2);
             },
             voidStars() {
                 return 5 - this.vote;
             },
             partialPath() {
-                return this.movie.poster_path;
-            }
+                return this.cardObj.poster_path;
+            },
         },
         methods: {
             isFound(lang) {
@@ -58,12 +55,7 @@
                 <span :class="`fi fi-${ originalLanguage }`"></span></p>
             <p>
                 <span>Voto:</span>
-                <span v-for="num in vote">
-                    <i class="fa-solid fa-star"></i>
-                </span>
-                <span v-for="num in voidStars">
-                    <i class="fa-regular fa-star"></i>
-                </span>
+                <i v-for="num in 5" :key="num" class="fa-star" :class="num <= vote ? 'fa-solid' : 'fa-regular'"></i>
             </p>
             <p><span>Overview:</span> {{ overview }} </p>
         </div>
